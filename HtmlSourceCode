@@ -76,8 +76,8 @@
   </div>
   <nav class="max-w-7xl mx-auto px-4 mt-4">
     <div class="flex gap-2">
-      <button class="btn-tab nav-active" data-tab="all">See all products</button>
-      <button class="btn-tab" data-tab="range">See the bike range</button>
+      <button class="btn-tab nav-active" data-tab="bikes">Bikes</button>
+      <button class="btn-tab" data-tab="accessories">Accessories</button>
       <button class="btn-tab hidden" data-tab="detail">Product detail</button>
       <button class="btn-tab" data-tab="order">My order</button>
     </div>
@@ -129,7 +129,7 @@
 
 <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
   <!-- ALL PRODUCTS -->
-  <section id="tab-all" class="block">
+  <section id="tab-bikes" class="block">
     <div class="lg:grid lg:grid-cols-[280px_1fr] lg:gap-6">
       <aside class="sidebar mb-6 lg:mb-0">
         <div class="rounded-2xl bg-white border card-shadow p-4">
@@ -137,27 +137,27 @@
             <h2 class="text-base font-semibold">Filters</h2>
             <button id="clearFilters" class="text-sm underline">Clear all</button>
           </div>
-          <div id="filtersContainer" class="space-y-5">
+          <div id="filtersContainer-bikes" class="space-y-5">
             <!-- PRODUCT TYPE (radio) -->
-            <div id="flt-producttype" class="hidden"></div>
-            <div id="flt-handlebar" class="hidden"></div>
-            <div id="flt-colour" class="hidden"></div>
-            <div id="flt-speed" class="hidden"></div>
-            <div id="flt-rack" class="hidden"></div>
-            <div id="flt-extra" class="space-y-4"></div>
+            <div id="flt-producttype-bikes" class="hidden"></div>
+            <div id="flt-handlebar-bikes" class="hidden"></div>
+            <div id="flt-colour-bikes" class="hidden"></div>
+            <div id="flt-speed-bikes" class="hidden"></div>
+            <div id="flt-rack-bikes" class="hidden"></div>
+            <div id="flt-extra-bikes" class="space-y-4"></div>
           </div>
         </div>
       </aside>
       <div>
-        <div id="stats" class="mb-2 text-sm text-neutral-600">Load a CSV to begin.</div>
+        <div id="stats-bikes" class="mb-2 text-sm text-neutral-600">Load a CSV to begin.</div>
 
         <!-- Expand/Collapse + Sort -->
         <div class="mb-3 flex items-center gap-2 flex-wrap">
-          <button id="expandAll" class="px-2 py-1 border rounded bg-white text-sm">Expand all</button>
-          <button id="collapseAll" class="px-2 py-1 border rounded bg-white text-sm">Collapse all</button>
+          <button id="expandAll-bikes" class="px-2 py-1 border rounded bg-white text-sm">Expand all</button>
+          <button id="collapseAll-bikes" class="px-2 py-1 border rounded bg-white text-sm">Collapse all</button>
           <span class="inline-flex items-center gap-2 ml-2">
-            <label for="sortMode" class="text-sm text-neutral-700">Sort:</label>
-            <select id="sortMode" class="px-2 py-1 border rounded bg-white text-sm">
+            <label for="sortMode-bikes" class="text-sm text-neutral-700">Sort:</label>
+            <select id="sortMode-bikes" class="px-2 py-1 border rounded bg-white text-sm">
               <option value="sku_asc">SKU code A→Z</option>
               <option value="sku_desc">SKU code Z→A</option>
               <option value="price_asc">Price: cheapest → most expensive</option>
@@ -168,7 +168,51 @@
         </div>
 
         <!-- Grouped gallery container -->
-        <div id="grid" class="space-y-3"></div>
+        <div id="grid-bikes" class="space-y-3"></div>
+      </div>
+    </div>
+  </section>
+
+<section id="tab-accessories" class="hidden">
+    <div class="lg:grid lg:grid-cols-[280px_1fr] lg:gap-6">
+      <aside class="sidebar mb-6 lg:mb-0">
+        <div class="rounded-2xl bg-white border card-shadow p-4">
+          <div class="flex items-center justify-between mb-2">
+            <h2 class="text-base font-semibold">Filters</h2>
+            <button id="clearFilters" class="text-sm underline">Clear all</button>
+          </div>
+          <div id="filtersContainer-accessories" class="space-y-5">
+            <!-- PRODUCT TYPE (radio) -->
+            <div id="flt-producttype-accessories" class="hidden"></div>
+            <div id="flt-handlebar-accessories" class="hidden"></div>
+            <div id="flt-colour-accessories" class="hidden"></div>
+            <div id="flt-speed-accessories" class="hidden"></div>
+            <div id="flt-rack-accessories" class="hidden"></div>
+            <div id="flt-extra-accessories" class="space-y-4"></div>
+          </div>
+        </div>
+      </aside>
+      <div>
+        <div id="stats-accessories" class="mb-2 text-sm text-neutral-600">Load a CSV to begin.</div>
+
+        <!-- Expand/Collapse + Sort -->
+        <div class="mb-3 flex items-center gap-2 flex-wrap">
+          <button id="expandAll-accessories" class="px-2 py-1 border rounded bg-white text-sm">Expand all</button>
+          <button id="collapseAll-accessories" class="px-2 py-1 border rounded bg-white text-sm">Collapse all</button>
+          <span class="inline-flex items-center gap-2 ml-2">
+            <label for="sortMode-accessories" class="text-sm text-neutral-700">Sort:</label>
+            <select id="sortMode-accessories" class="px-2 py-1 border rounded bg-white text-sm">
+              <option value="sku_asc">SKU code A→Z</option>
+              <option value="sku_desc">SKU code Z→A</option>
+              <option value="price_asc">Price: cheapest → most expensive</option>
+              <option value="disc_pct_desc">Highest discount % → lowest %</option>
+              <option value="disc_val_desc">Highest discount value → lowest</option>
+            </select>
+          </span>
+        </div>
+
+        <!-- Grouped gallery container -->
+        <div id="grid-accessories" class="space-y-3"></div>
       </div>
     </div>
   </section>
@@ -293,7 +337,8 @@ let DATA = null;
 window.DATA = null;
 let countryCols = [];
 let countryCodes = [];
-let _allTabScrollY = 0; // store scroll position
+let _scrollY_bikes = 0;
+let _scrollY_accessories = 0; // store scroll position
 const state = {
   countryIndex: 0,
   filters: {},
@@ -306,7 +351,8 @@ const state = {
   // prices
   priceMap: {}, // { [CC]: { [SKU]: {currency,list,sale} } }
   cart: { items: [] },
-  orders: []
+  orders: [],
+  listOrigin: "bikes"
 };
 
 /* ==============================
@@ -317,8 +363,7 @@ function nonEmpty(v){ return (v!==undefined && v!==null && String(v).trim()!==""
 function unique(arr){ return [...new Set(arr)]; }
 function skuKey(s){ return String(s||"").trim().toUpperCase(); } // normalize SKUs for price matching
 
-function setActiveTab(id){
-  ["all","range","detail","order"].forEach(t=>{
+function setActiveTab(id){ ["bikes","accessories","detail","order"].forEach(t=>{
     const tabBtn = document.querySelector(`[data-tab="${t}"]`);
     tabBtn?.classList.toggle("nav-active", t===id);
     const tab = document.getElementById(`tab-${t}`);
@@ -522,8 +567,14 @@ function buildDATA(parsed){
 /* ==============================
    HIERARCHY FILTERS (Top ribbon REMOVED)
 ============================== */
-function buildHierarchyPanel(){ /* removed top ribbon */ }
-function currentPool(){ return (DATA?.rows||[]).filter(availableInSelectedCountry); }
+function buildHierarchyPanel(){ /* no-op: ribbon removed */ }
+function isBikeH1(row){ return String(row.h1||"").trim().toLowerCase()==="bike"; }
+function currentPool(tab){
+  let base = (DATA?.rows||[]).filter(availableInSelectedCountry).filter(passesHierarchy);
+  if(tab==="bikes") return base.filter(isBikeH1);
+  if(tab==="accessories") return base.filter(r=>!isBikeH1(r));
+  return base;
+}
 
 /* ==============================
    PROGRESSIVE FILTERS (sidebar)
@@ -538,24 +589,25 @@ function domClear(containerId){
 function clearDownstream(fromKey, map){
   const {keyHandlebar,keyColour,keySpeed,keyRack} = map;
   if(fromKey===keyHandlebar){
-    if(keyColour) { delete state.filters[keyColour]; domClear("flt-colour"); }
-    if(keySpeed)  { delete state.filters[keySpeed];  domClear("flt-speed");  }
-    if(keyRack)   { delete state.filters[keyRack];   domClear("flt-rack");   }
+    if(keyColour) { delete state.filters[keyColour]; domClear("flt-colour-"+suffix); }
+    if(keySpeed)  { delete state.filters[keySpeed];  domClear("flt-speed-"+suffix);  }
+    if(keyRack)   { delete state.filters[keyRack];   domClear("flt-rack-"+suffix);   }
   } else if(fromKey===keyColour){
-    if(keySpeed)  { delete state.filters[keySpeed];  domClear("flt-speed");  }
-    if(keyRack)   { delete state.filters[keyRack];   domClear("flt-rack");   }
+    if(keySpeed)  { delete state.filters[keySpeed];  domClear("flt-speed-"+suffix);  }
+    if(keyRack)   { delete state.filters[keyRack];   domClear("flt-rack-"+suffix);   }
   } else if(fromKey===keySpeed){
-    if(keyRack)   { delete state.filters[keyRack];   domClear("flt-rack");   }
+    if(keyRack)   { delete state.filters[keyRack];   domClear("flt-rack-"+suffix);   }
   }
 }
 function clearAllFilters(){
   state.filters = {};
-  ["flt-producttype","flt-handlebar","flt-colour","flt-speed","flt-rack","flt-extra"].forEach(domClear);
+  ["flt-producttype","flt-handlebar-"+suffix,"flt-colour-"+suffix,"flt-speed-"+suffix,"flt-rack-"+suffix,"flt-extra"].forEach(domClear);
 }
-function buildGroupRadio(containerId, key, title, upstreamKeys, onChange){
+function buildGroupRadio(containerId, key, title, upstreamKeys, onChange, help){
   const el=document.getElementById(containerId); el.innerHTML="";
   if(!key){ el.classList.add("hidden"); return; }
-  const pool = currentPool().filter(r=>{
+  const tab = containerId.endsWith("-accessories") ? "accessories" : "bikes";
+  const pool = currentPool(tab).filter(r=>{
     for(const uk of (upstreamKeys||[])){
       const s=state.filters[uk];
       if(s && s.size && !s.has((r.filters||{})[uk])) return false;
@@ -565,7 +617,15 @@ function buildGroupRadio(containerId, key, title, upstreamKeys, onChange){
   const values = valueSet(pool, key);
   if(!values.length){ el.classList.add("hidden"); return; }
   el.classList.remove("hidden");
-  const titleEl=document.createElement("div"); titleEl.className="text-sm font-medium mb-1"; titleEl.textContent=title; el.appendChild(titleEl);
+  const titleEl=document.createElement("div"); titleEl.className="text-sm font-medium mb-1 flex items-center gap-2"; 
+  const tSpan=document.createElement("span"); tSpan.textContent=title; titleEl.appendChild(tSpan);
+  if(help && tab==="bikes"){
+    const wrap=document.createElement("span"); wrap.className="relative group inline-flex";
+    const tip=document.createElement("img"); tip.src=help.src; tip.alt="Help"; tip.className="hidden group-hover:block absolute top-full left-0 mt-2 max-w-xs rounded-lg border shadow-lg bg-white";
+    const btn=document.createElement("span"); btn.textContent="?"; btn.className="px-1.5 py-0.5 text-xs border rounded cursor-help select-none";
+    wrap.appendChild(btn); wrap.appendChild(tip); titleEl.appendChild(wrap);
+  }
+  el.appendChild(titleEl);
   const wrap=document.createElement("div"); wrap.className="space-y-1"; el.appendChild(wrap);
   const selected = state.filters[key] ? Array.from(state.filters[key])[0] : null;
   values.forEach(val=>{
@@ -579,8 +639,8 @@ function buildGroupRadio(containerId, key, title, upstreamKeys, onChange){
     wrap.appendChild(row);
   });
 }
-function buildExtras(){
-  const extra=document.getElementById("flt-extra"); extra.innerHTML="";
+function buildExtras(suffix){
+  const extra=document.getElementById("flt-extra-"+suffix); if(!extra) return; extra.innerHTML="";
   const known = new Set((DATA?.filters||[]).map(f=>f.key).filter(k=>{
     const lc=k.toLowerCase();
     return ["filter handlebar","filter colour","filter color","filter speed","filter rack"]
@@ -600,13 +660,13 @@ function buildExtras(){
         const sel = state.filters[f.key] || new Set();
         if(e.target.checked) sel.add(e.target.value); else sel.delete(e.target.value);
         if(sel.size) state.filters[f.key]=sel; else delete state.filters[f.key];
-        renderAll();
+        renderCatalog(suffix);
       });
       group.appendChild(row);
     });
   });
 }
-function buildProgressiveFilters(){
+function buildProgressiveFilters(suffix){
   const keyHandlebar = findFilterKey("Filter Handlebar");
   const keyColour    = findFilterKey("Filter Colour") || findFilterKey("Filter Color");
   const keySpeed     = findFilterKey("Filter Speed");
@@ -614,79 +674,36 @@ function buildProgressiveFilters(){
   const map = {keyHandlebar,keyColour,keySpeed,keyRack};
 
   // PRODUCT TYPE first (drives state.hier.h1)
-  (function buildProductType(){
-    const el = document.getElementById("flt-producttype");
-    if(!el) return;
-    el.innerHTML = "";
-    const pool = (DATA?.rows||[]).filter(availableInSelectedCountry);
-    const values = [...new Set(pool.map(r=>r.h1).filter(nonEmpty))].sort();
-    if(!values.length){ el.classList.add("hidden"); return; }
-    el.classList.remove("hidden");
-    const title = document.createElement("div");
-    title.className = "text-sm font-medium mb-1";
-    title.textContent = "Product type";
-    el.appendChild(title);
-    const wrap = document.createElement("div");
-    wrap.className = "space-y-1";
-    el.appendChild(wrap);
-
-    const any = document.createElement("label");
-    any.className = "flex items-center gap-2 text-sm";
-    any.innerHTML = `<input type="radio" name="producttype" value="" ${!state.hier.h1?"checked":""}><span>All</span>`;
-    any.querySelector("input").addEventListener("change",()=>{
-      state.hier.h1 = null; state.hier.h2 = null; state.hier.h3 = null;
-      clearCoreFiltersOnly();
-      buildProgressiveFilters();
-      renderAll();
-    });
-    wrap.appendChild(any);
-
-    values.forEach(v=>{
-      const id = `radio-producttype-${v.replace(/\W/g,'_')}`;
-      const row = document.createElement("label");
-      row.className = "flex items-center gap-2 text-sm";
-      row.innerHTML = `<input type="radio" name="producttype" id="${id}" value="${v}" ${state.hier.h1===v?"checked":""}><span>${v}</span>`;
-      row.querySelector("input").addEventListener("change",(e)=>{
-        state.hier.h1 = e.target.value || null;
-        state.hier.h2 = null; state.hier.h3 = null;
-        clearCoreFiltersOnly();
-        buildProgressiveFilters();
-        renderAll();
-      });
-      wrap.appendChild(row);
-    });
-  })();
-
-  buildGroupRadio("flt-handlebar", keyHandlebar, "Filter Handlebar", [], ()=>{
-    clearDownstream(keyHandlebar, map); buildProgressiveFilters(); renderAll();
+  const handleHelp={src:"https://tse3.mm.bing.net/th/id/OIP.T-TdpB2jNy5feUXLxL8CVAHaHT?rs=1&pid=ImgDetMain&o=7&rm=3"};
+  buildGroupRadio("flt-handlebar-"+suffix, keyHandlebar, "Filter Handlebar", [], () => {
+    clearDownstream(keyHandlebar, map); buildProgressiveFilters(); renderCatalog(suffix);
   });
 
   const hasHandlebar = keyHandlebar && state.filters[keyHandlebar] && state.filters[keyHandlebar].size>0;
   if(hasHandlebar){
-    buildGroupRadio("flt-colour", keyColour, "Filter Colour", [keyHandlebar], ()=>{
-      clearDownstream(keyColour, map); buildProgressiveFilters(); renderAll();
+    buildGroupRadio("flt-colour-"+suffix, keyColour, "Filter Colour", [keyHandlebar], ()=>{
+      clearDownstream(keyColour, map); buildProgressiveFilters(); renderCatalog(suffix);
     });
   } else { clearDownstream(keyHandlebar, map); }
 
   const hasColour = keyColour && state.filters[keyColour] && state.filters[keyColour].size>0;
   if(hasHandlebar && hasColour){
-    buildGroupRadio("flt-speed", keySpeed, "Filter Speed", [keyHandlebar,keyColour], ()=>{
-      clearDownstream(keySpeed, map); buildProgressiveFilters(); renderAll();
+    const speedHelp={src:"https://tse1.mm.bing.net/th/id/OIP.zjaOtujsqLbFaUIWKuKCIgHaDn?rs=1&pid=ImgDetMain&o=7&rm=3"};
+    buildGroupRadio("flt-speed-"+suffix, keySpeed, "Filter Speed", [keyHandlebar,keyColour], () => {
+      clearDownstream(keySpeed, map); buildProgressiveFilters(); renderCatalog(suffix);
     });
   } else if(hasHandlebar){ clearDownstream(keyColour, map); }
 
   const hasSpeed = keySpeed && state.filters[keySpeed] && state.filters[keySpeed].size>0;
   if(hasHandlebar && hasColour && hasSpeed){
-    buildGroupRadio("flt-rack", keyRack, "Filter Rack", [keyHandlebar,keyColour,keySpeed], ()=>{
-      clearDownstream(keyRack, map); buildProgressiveFilters(); renderAll();
+    buildGroupRadio("flt-rack-"+suffix, keyRack, "Filter Rack", [keyHandlebar,keyColour,keySpeed], ()=>{
+      clearDownstream(keyRack, map); buildProgressiveFilters(); renderCatalog(suffix);
     });
   } else if(hasHandlebar && hasColour){ clearDownstream(keySpeed, map); }
 
-  buildExtras();
+  buildExtras(suffix);
 
-  document.getElementById("clearFilters").onclick = ()=>{
-    clearAllFilters(); buildProgressiveFilters(); renderAll();
-  };
+  const clearBtn = document.getElementById(suffix==="bikes"?"clearFilters":"clearFilters-accessories"); if(clearBtn){ clearBtn.onclick = ()=>{ clearAllFilters(); buildProgressiveFilters(suffix); renderCatalog(suffix); }; }
 }
 function clearCoreFiltersOnly(){
   const keyHandlebar = findFilterKey("Filter Handlebar");
@@ -694,10 +711,10 @@ function clearCoreFiltersOnly(){
   const keySpeed     = findFilterKey("Filter Speed");
   const keyRack      = findFilterKey("Filter Rack");
   const ids = [];
-  if(keyHandlebar){ delete state.filters[keyHandlebar]; ids.push("flt-handlebar"); }
-  if(keyColour){ delete state.filters[keyColour]; ids.push("flt-colour"); }
-  if(keySpeed){ delete state.filters[keySpeed]; ids.push("flt-speed"); }
-  if(keyRack){ delete state.filters[keyRack]; ids.push("flt-rack"); }
+  if(keyHandlebar){ delete state.filters[keyHandlebar]; ids.push("flt-handlebar-"+suffix); }
+  if(keyColour){ delete state.filters[keyColour]; ids.push("flt-colour-"+suffix); }
+  if(keySpeed){ delete state.filters[keySpeed]; ids.push("flt-speed-"+suffix); }
+  if(keyRack){ delete state.filters[keyRack]; ids.push("flt-rack-"+suffix); }
   ids.forEach(domClear);
 }
 
@@ -745,7 +762,7 @@ function brandChip(src){
   const t=document.createElement("span"); t.textContent="Brand"; w.appendChild(t);
   return w;
 }
-function cardFor(row){
+function cardFor(row, originTab){
   const t=document.getElementById("cardTemplate");
   const n=t.content.cloneNode(true);
   const img=n.querySelector("img");
@@ -781,7 +798,7 @@ function cardFor(row){
   // Open detail on card click
   const cardRoot = n.querySelector(".rounded-2xl");
   cardRoot.addEventListener("click", ()=>{
-    _allTabScrollY = window.scrollY || 0; // save scroll position before switching
+    if(originTab==="accessories"){ _scrollY_accessories = window.scrollY||0; state.listOrigin="accessories"; } else { _scrollY_bikes = window.scrollY||0; state.listOrigin="bikes"; }
     state.detailId = row.uid;
     renderDetail();
     setActiveTab("detail");
@@ -821,12 +838,12 @@ function sectionSummary(label, count){
   wrap.appendChild(span);
   return wrap;
 }
-function renderAll(){
-  const grid=document.getElementById("grid");
-  const stats=document.getElementById("stats");
+function renderCatalog(suffix){
+  const grid=document.getElementById("grid-"+suffix);
+  const stats=document.getElementById("stats-"+suffix);
   if(!DATA){ grid.innerHTML=""; stats.textContent="Load a CSV to begin."; return; }
 
-  const rows=(DATA.rows||[]).filter(availableInSelectedCountry).filter(passesFilters);
+  const rows=currentPool(suffix).filter(passesFilters);
   stats.textContent = 'Showing '+rows.length+' item(s)';
 
   const byH1 = groupBy(rows, r=>r.h1 || "(No H1)");
@@ -861,12 +878,14 @@ function renderAll(){
         wrap.className="mt-2 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4";
         const mode = getSortMode();
         const sorted = [...listH3].sort(bySort(mode));
-        sorted.forEach(r=> wrap.appendChild(cardFor(r)));
+        sorted.forEach(r=> wrap.appendChild(cardFor(r, suffix)));
         d3.appendChild(wrap);
       });
     });
   });
 }
+
+function renderAll(){ renderCatalog("bikes"); renderCatalog("accessories"); }
 
 /* ==============================
    BIKE RANGE (unchanged logic)
@@ -877,13 +896,7 @@ function isBike(row){
   const noSlash=raw.replace(/^\s*\/+/,'').replace(/\/+\s*$/,'').replace(/\//g,' ').trim();
   return cleaned==='bike'||noSlash==='bike'||raw.includes('bike');
 }
-function renderRange(){
-  const grid=document.getElementById("range-grid");
-  const stats=document.getElementById("range-stats");
-  const elH2=document.getElementById("range-h2");
-  const elH3blk=document.getElementById("range-h3-block");
-  const elH3=document.getElementById("range-h3");
-  if(!DATA){ grid.innerHTML=""; stats.textContent=""; elH2.innerHTML=""; elH3.innerHTML=""; elH3blk.classList.add("hidden"); return; }
+function renderRange(){ /* removed */ }
 
   const bikesOnly=(DATA.rows||[]).filter(availableInSelectedCountry).filter(isBike);
   const h2Choices=[...new Set(bikesOnly.map(r=>r.h2).filter(nonEmpty))].sort();
@@ -920,7 +933,7 @@ function renderRange(){
 ============================== */
 function renderDetail(){
   const row = getRowById(state.detailId);
-  if(!row){ setActiveTab("all"); return; }
+  if(!row){ setActiveTab("bikes"); return; }
 
   const bar = document.getElementById("pd-sticky-bar");
   const titleWrap = document.getElementById("pd-sticky-title");
@@ -1038,9 +1051,7 @@ function renderDetail(){
 
   // Back to all products with scroll restore
   document.getElementById("btnBackToAll").onclick = () => {
-    setActiveTab("all");
-    document.querySelector('[data-tab="detail"]')?.classList.add("hidden");
-    requestAnimationFrame(() => { window.scrollTo({ top: _allTabScrollY, behavior: "instant" }); });
+    const origin=state.listOrigin||"bikes"; setActiveTab(origin); document.querySelector('[data-tab="detail"]')?.classList.add("hidden"); requestAnimationFrame(()=>{ const y = origin==="accessories"?_scrollY_accessories:_scrollY_bikes; window.scrollTo({top:y, behavior:"instant"}); });
   };
 }
 
@@ -1585,7 +1596,7 @@ function buildCountrySelect(){
     localStorage.setItem("bike_app_country_index", String(state.countryIndex));
     clearAllFilters();
     buildProgressiveFilters();
-    renderAll();
+    renderCatalog(suffix);
     renderRange();
     renderCart();
     if(state.detailId!=null) renderDetail();
@@ -1609,7 +1620,7 @@ csvInput.addEventListener("change",(e)=>{
       buildCountrySelect();
       buildHierarchyPanel(); // no-op
       buildProgressiveFilters();
-      renderAll();
+      renderCatalog(suffix);
       renderRange();
       renderCart();
       if(state.detailId!=null) renderDetail();
@@ -1629,7 +1640,7 @@ priceInput.addEventListener("change",(e)=>{
     complete: (res)=>{
       buildPriceMap(res);
       // Refresh prices everywhere
-      renderAll();
+      renderCatalog(suffix);
       renderRange();
       renderCart();
       if(state.detailId!=null) renderDetail();
@@ -1656,27 +1667,29 @@ document.getElementById("cartOverlay").onclick = ()=>openCart(false);
 
 document.querySelectorAll(".btn-tab").forEach(btn=>btn.addEventListener("click",()=>setActiveTab(btn.dataset.tab)));
 
-document.getElementById("expandAll").onclick = ()=>{
-  document.querySelectorAll("#grid details").forEach(d => d.open = true);
+document.getElementById("expandAll-bikes").onclick = ()=>{
+  document.querySelectorAll("#grid-bikes details").forEach(d => d.open = true);
 };
-document.getElementById("collapseAll").onclick = ()=>{
-  document.querySelectorAll("#grid details").forEach(d => d.open = false);
+document.getElementById("collapseAll-bikes").onclick = ()=>{
+  document.querySelectorAll("#grid-bikes details").forEach(d => d.open = false);
 };
+const eb = document.getElementById("expandAll-accessories");
+if(eb){ eb.onclick = ()=>{ document.querySelectorAll("#grid-accessories details").forEach(d=>d.open=true); }; }
+const cb = document.getElementById("collapseAll-accessories");
+if(cb){ cb.onclick = ()=>{ document.querySelectorAll("#grid-accessories details").forEach(d=>d.open=false); }; }
 
 // init sort control (persist + re-render)
-(function initSort(){
-  const sel = document.getElementById("sortMode");
-  if(sel){
-    sel.value = getSortMode();
-    sel.addEventListener("change", e => { setSortMode(e.target.value); renderAll(); });
-  }
-})();
-
-/* ==============================
+(function initSorts(){
+  const ids=["sortMode-bikes","sortMode-accessories"];
+  ids.forEach(id=>{
+    const sel=document.getElementById(id);
+    if(sel){ sel.value=getSortMode(); sel.addEventListener("change", e=>{ setSortMode(e.target.value); renderAll(); }); }
+  });
+})();/* ==============================
    BOOTSTRAP
 ============================== */
 restore();
-setActiveTab("all");
+setActiveTab("bikes");
 buildHierarchyPanel(); // no-op
 renderOrders();
 updateCartBadge();
